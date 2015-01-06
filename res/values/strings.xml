@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">Focco Notifica</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="ok">Ok</string>
+    <string name="etc">&#8230;</string>
+    <string name="ok">OK</string>
+    <string name="config">Configurações</string>
+    <string name="refresh">Atualizar</string>
 
 </resources>

@@ -6,6 +6,8 @@ import java.util.List;
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,17 +21,17 @@ public class Principal extends Activity implements OnItemClickListener {
 	List<Mensagem> msgs;
 	private ListView listaMsgs;
 	SQLiteDatabase db;
+	MsgAdap adap;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
 
-		carrega();
-		
 		db = new Base(getApplicationContext()).getWritableDatabase();
 
-		MsgAdap adap = new MsgAdap(this, msgs);
+		carrega();
+		adap = new MsgAdap(this, msgs);
 
 		listaMsgs = (ListView) findViewById(R.id.lstGeral);
 		listaMsgs.setAdapter(adap);
@@ -40,7 +42,7 @@ public class Principal extends Activity implements OnItemClickListener {
 		if (msgs == null) {
 			msgs = new ArrayList<Mensagem>();
 		}
-		msgs.clear();
+		//msgs.clear();
 
 		for (int i = 1; i < 10; i++) {
 			Mensagem tmp = new Mensagem();
@@ -64,14 +66,41 @@ public class Principal extends Activity implements OnItemClickListener {
 				break;
 			}
 
-			// tmp.status = "0";
 			tmp.resposta = "";
 			msgs.add(tmp);
 		}
+		if (adap != null)
+			adap.notifyDataSetChanged();
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Toast.makeText(getApplicationContext(), msgs.get(position).mensagem, Toast.LENGTH_LONG).show();
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.principal, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.mnuConfig) {
+			return true;
+		} else if (id == R.id.mnuRefresh) {
+			Toast.makeText(getApplicationContext(), "atualizando...",
+					Toast.LENGTH_SHORT).show();
+			carrega();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Toast.makeText(getApplicationContext(), msgs.get(position).mensagem,
+				Toast.LENGTH_LONG).show();
 	}
 }
