@@ -1,4 +1,4 @@
-package br.com.focco.focconotifica.data;
+package br.com.focco.focconotifica.db.data;
 
 public class Mensagem {
 	public int id;

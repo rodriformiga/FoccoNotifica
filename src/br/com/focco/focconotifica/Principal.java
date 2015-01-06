@@ -4,18 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-import br.com.focco.focconotifica.data.Mensagem;
+import br.com.focco.focconotifica.db.Base;
+import br.com.focco.focconotifica.db.data.Mensagem;
 
 public class Principal extends Activity implements OnItemClickListener {
 
 	List<Mensagem> msgs;
 	private ListView listaMsgs;
+	SQLiteDatabase db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,8 @@ public class Principal extends Activity implements OnItemClickListener {
 		setContentView(R.layout.activity_principal);
 
 		carrega();
+		
+		db = new Base(getApplicationContext()).getWritableDatabase();
 
 		MsgAdap adap = new MsgAdap(this, msgs);
 

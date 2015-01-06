@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import br.com.focco.focconotifica.data.Mensagem;
+import br.com.focco.focconotifica.db.data.Mensagem;
 
 public class MsgAdap extends BaseAdapter {
 	private List<Mensagem> lista;
