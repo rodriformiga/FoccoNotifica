@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="confCatServer"
+        android:summary="sumario"
+        android:title="Servidor" >
+        <Preference
+            android:defaultValue="10.1.1.1"
+            android:key="confServerIp"
+            android:summary="Ip do servidor"
+            android:title="Ip" />
+
+        <EditTextPreference
+            android:key="confServText"
+            android:summary="sumario"
+            android:title="edtTextPref" />
+
+        <CheckBoxPreference
+            android:key="confServAtivo"
+            android:summary="summary"
+            android:title="title" />
+
+        <ListPreference
+            android:dialogTitle="Titulo"
+            android:entries="@array/testelista"
+            android:entryValues="@array/testelistav"
+            android:key="xxx"
+            android:negativeButtonText="@string/cancelar"
+            android:positiveButtonText="@string/ok"
+            android:title="Lista" android:selectable="true" android:enabled="true"/>
+
+        <SwitchPreference
+            android:key="chave"
+            android:summary="sumChave"
+            android:summaryOff="Desliga"
+            android:summaryOn="Liga"
+            android:switchTextOff="Desligado"
+            android:switchTextOn="Ligado"
+            android:title="Chave" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

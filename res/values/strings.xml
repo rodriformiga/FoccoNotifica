@@ -4,7 +4,18 @@
     <string name="app_name">Focco Notifica</string>
     <string name="etc">&#8230;</string>
     <string name="ok">OK</string>
-    <string name="config">Configurações</string>
-    <string name="refresh">Atualizar</string>
-
+    <string name="configurar">Configurações</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="cancelar">Cancelar</string>
+<string-array name="testelista">
+    <item >aaa</item>
+    <item >bbb</item>
+    <item >ccc</item>
+</string-array>
+<string-array name="testelistav">
+    <item >aaa1</item>
+    <item >bbb2</item>
+    <item >ccc3</item>
+</string-array>
 </resources>

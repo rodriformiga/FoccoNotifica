@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -77,6 +78,7 @@ public class Principal extends Activity implements OnItemClickListener {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.principal, menu);
+		menu.findItem(R.id.mnuBuscar).getActionView();
 		return true;
 	}
 
@@ -87,8 +89,13 @@ public class Principal extends Activity implements OnItemClickListener {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.mnuConfig) {
+		   //Util.criarNotificacao(getApplicationContext(), 1);
+		   startActivity(new Intent(this, Config.class));
+		   /*Intent intent = new Intent();
+	        intent.setClass(this, SetPreferenceActivity.class);
+	        startActivityForResult(intent, 0); */
 			return true;
-		} else if (id == R.id.mnuRefresh) {
+		} else if (id == R.id.mnuAtualiza) {
 			Toast.makeText(getApplicationContext(), "atualizando...",
 					Toast.LENGTH_SHORT).show();
 			carrega();

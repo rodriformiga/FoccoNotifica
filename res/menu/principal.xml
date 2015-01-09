@@ -3,15 +3,22 @@
     tools:context="br.com.focco.focconotifica" >
 
     <item
-        android:id="@+id/mnuRefresh"
-        android:icon="@drawable/ic_mnu_refresh"
+        android:id="@+id/mnuBuscar"
+        android:icon="@drawable/ic_action_search"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="@string/refresh"/>
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/pesquisar"/>
+    <item
+        android:id="@+id/mnuAtualiza"
+        android:icon="@drawable/ic_action_refresh"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/atualizar"/>
     <item
         android:id="@+id/mnuConfig"
+        android:icon="@drawable/ic_action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/config"/>
+        android:showAsAction="always"
+        android:title="@string/configurar"/>
 
 </menu>
