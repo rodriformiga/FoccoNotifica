@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/confAplicacao" >
+        <CheckBoxPreference
+            android:key="confAplNotifica"
+            android:summary="@string/confAplNotificaSum"
+            android:title="@string/confAplNotificaTit" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/confServidor" >
+        <EditTextPreference
+            android:key="confServEnder"
+            android:summary="@string/confServEnderSum"
+            android:title="@string/confServEnderTit" />
+        <EditTextPreference
+            android:key="confServServico"
+            android:summary="@string/confServServicoSum"
+            android:title="@string/confServServicoTit"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

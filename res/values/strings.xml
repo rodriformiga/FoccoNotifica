@@ -8,14 +8,16 @@
     <string name="atualizar">Atualizar</string>
     <string name="pesquisar">Pesquisar</string>
     <string name="cancelar">Cancelar</string>
-<string-array name="testelista">
-    <item >aaa</item>
-    <item >bbb</item>
-    <item >ccc</item>
-</string-array>
-<string-array name="testelistav">
-    <item >aaa1</item>
-    <item >bbb2</item>
-    <item >ccc3</item>
-</string-array>
+
+<!-- Strings de Configuração -->
+    <string name="confAplicacao">Aplicação</string>
+    <string name="confAplNotificaSum">Exibe novas notificações</string>
+    <string name="confAplNotificaTit">Notificações</string>
+    <string name="confServidor">Servidor</string>
+    <string name="confServEnderSum">Endereço do Servidor</string>
+    <string name="confServEnderTit">Endereço Servidor</string>
+    <string name="confServServicoSum">Serviço do Servidor</string>
+    <string name="confServServicoTit">Serviço Servidor</string>
+
+
 </resources>

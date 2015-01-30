@@ -52,6 +52,7 @@ public class Util {
 
    // Exibe a notificão
    
+   @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
    protected static void criarNotificacao(Context context, int id) {
 
       NotificationCompat.Builder notif = new NotificationCompat.Builder(context)
