@@ -8,15 +8,20 @@
             android:title="@string/confAplNotificaTit" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/confServidor" >
+        <Preference
+            android:key="confDevID"
+            android:summary="ID do Dispositivo"
+            android:title="ID do Dispositivo" />
+
         <EditTextPreference
             android:key="confServEnder"
             android:summary="@string/confServEnderSum"
             android:title="@string/confServEnderTit" />
         <EditTextPreference
+            android:enabled="false"
             android:key="confServServico"
             android:summary="@string/confServServicoSum"
-            android:title="@string/confServServicoTit"
-            android:enabled="false" />
+            android:title="@string/confServServicoTit" />
     </PreferenceCategory>
 
 </PreferenceScreen>

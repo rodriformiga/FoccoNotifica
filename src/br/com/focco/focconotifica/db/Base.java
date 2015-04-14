@@ -32,7 +32,6 @@ public class Base extends SQLiteOpenHelper {
    private void atualiza(SQLiteDatabase db, int version) {
       String arq = String.format("db/%d.sql", version);
       String sql = Util.getStringFromAsset(context, arq);
-      //String sql2 = Util.getStringFromAsset(context, arq);
       db.execSQL(sql);
    }
 

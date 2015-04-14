@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.annotation.TargetApi;
 import android.app.NotificationManager;
@@ -53,7 +57,7 @@ public class Util {
    // Exibe a notificão
    
    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-   protected static void criarNotificacao(Context context, int id) {
+   public static void criarNotificacao(Context context, int id) {
 
       NotificationCompat.Builder notif = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.ic_focco)
@@ -76,5 +80,38 @@ public class Util {
       NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
       mNotificationManager.notify(id, notif.build());
+   }
+   
+   public static boolean isConnectedToServer(String url, int timeout) {
+      try{
+          URL myUrl = new URL(url);
+          URLConnection connection = myUrl.openConnection();
+          connection.setConnectTimeout(timeout);
+          connection.connect();
+          return true;
+      } catch (Exception e) {
+          return false;
+      }
+   }
+
+   public static class Validar{
+      private static Pattern pattern;
+      private static Matcher matcher;
+      //Email Pattern
+      private static final String EMAIL_PATTERN =
+              "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+              + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+   
+      /**
+       * Validar e-mail com Expressão Regular
+       *
+       * @param email
+       * @return true para e-mail válido e false para e-mail Inválido
+       */
+      public static boolean validate(String email) {
+          pattern = Pattern.compile(EMAIL_PATTERN);
+          matcher = pattern.matcher(email);
+          return matcher.matches();
+      }
    }
 }

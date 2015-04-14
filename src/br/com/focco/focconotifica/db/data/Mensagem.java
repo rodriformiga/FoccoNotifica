@@ -16,6 +16,8 @@ public class Mensagem {
 			return "Nova";
 		case 'R':
 			return "Respondida";
+		case 'A':
+         return "Arquivada";
 		default:
 			return "Indefinido";
 		}
