@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.annotation.TargetApi;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -18,6 +19,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.telephony.TelephonyManager;
 
 public class Util {
    public static String getStringFromAsset(Context context, String fileName) {
@@ -54,18 +56,19 @@ public class Util {
       }
    }
 
-   // Exibe a notific„o
+   // Exibe a notific√ßao
    
    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-   public static void criarNotificacao(Context context, int id) {
+   public static void criarNotificacao(Context context, int id, String txt) {
 
       NotificationCompat.Builder notif = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.ic_focco)
             .setContentTitle("FoccoNotifica")
-            .setContentText("VocÍ possui novas mensagens.")
-            .setTicker("informaÁ„o....")
+            .setContentText(txt)
+            //.setTicker("informa√ß√£o....")
             .setLights(Color.rgb(200, 20, 0), 1000, 10000) // cor laranja
-            .setNumber(2);
+            .setNumber(1)
+            .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE);
 
       // The stack builder object will contain an artificial back stack for
       // the started Activity. This ensures that navigating backward from the
@@ -81,7 +84,12 @@ public class Util {
 
       mNotificationManager.notify(id, notif.build());
    }
-   
+
+   public static String getFoneNumber(Context context){
+      TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE); 
+      return tm.getLine1Number();
+   }
+
    public static boolean isConnectedToServer(String url, int timeout) {
       try{
           URL myUrl = new URL(url);
@@ -103,10 +111,10 @@ public class Util {
               + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
    
       /**
-       * Validar e-mail com Express„o Regular
+       * Validar e-mail com Express√£o Regular
        *
        * @param email
-       * @return true para e-mail v·lido e false para e-mail Inv·lido
+       * @return true para e-mail v√°lido e false para e-mail Inv√°lido
        */
       public static boolean validate(String email) {
           pattern = Pattern.compile(EMAIL_PATTERN);

@@ -1,12 +1,19 @@
 package br.com.focco.focconotifica;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +24,14 @@ import android.widget.Toast;
 import br.com.focco.focconotifica.db.Base;
 import br.com.focco.focconotifica.db.data.Mensagem;
 
-public class Principal extends Activity implements OnItemClickListener {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-	List<Mensagem> msgs;
+public class Principal extends Activity implements OnItemClickListener {
+	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+   List<Mensagem> msgs;
 	private ListView listaMsgs;
 	SQLiteDatabase db;
 	MsgAdap adap;
@@ -28,6 +40,10 @@ public class Principal extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
+		
+		if (checkPlayServices()) {
+         new Registrar().execute();
+      }		
 
 		db = new Base(getApplicationContext()).getWritableDatabase();
 
@@ -49,7 +65,7 @@ public class Principal extends Activity implements OnItemClickListener {
 			Mensagem tmp = new Mensagem();
 			tmp.id = i;
 			tmp.titulo = "Mensagem " + i;
-			tmp.mensagem = "Esta � a mensagem " + i;
+			tmp.mensagem = "Esta é a mensagem " + i;
 
 			switch (i) {
 			case 1:
@@ -110,4 +126,64 @@ public class Principal extends Activity implements OnItemClickListener {
 		Toast.makeText(getApplicationContext(), msgs.get(position).mensagem,
 				Toast.LENGTH_LONG).show();
 	}
+	
+   private boolean checkPlayServices() {
+      int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+      if (resultCode != ConnectionResult.SUCCESS) {
+         if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+            GooglePlayServicesUtil.getErrorDialog(resultCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+         } else {
+            ShowAlert("Este dispositivo não suporta o GooglePlayServices");
+         }
+         return false;
+      }
+      return true;
+   }
+   
+   private class Registrar extends AsyncTask<String, String, String> {
+      private static final String SENDER_ID = "210077989010";
+      private Exception err;
+
+      @Override
+      protected String doInBackground(String... args) {
+         GoogleCloudMessaging gcm;
+         String regid;
+         try {
+            gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+            regid = gcm.register(SENDER_ID);
+            Log.e("RegId", regid);
+            return regid;
+         } catch (IOException ex) {
+            err = ex;
+            return "Falha";
+         }
+      }
+
+      @Override
+      protected void onPostExecute(String str) {
+         if (str.equals("Falha")){
+            ShowAlert("Erro ao Registrar dispositivo: "+err.getMessage());
+         }else{
+            SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor editor = shared.edit();
+            editor.putString("confDevID", str);
+            editor.commit();
+         }
+      }
+   }
+
+   private void ShowAlert(String msg) {
+      AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+      builder.setTitle("Google Play Services")
+             .setMessage(msg)
+             .setIcon(R.drawable.ic_focco)
+             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                     public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                     }
+                  });
+
+      builder.create().show();      
+   }
 }

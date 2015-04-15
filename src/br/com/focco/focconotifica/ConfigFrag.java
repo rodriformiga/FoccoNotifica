@@ -31,17 +31,20 @@ public class ConfigFrag extends PreferenceFragment implements OnSharedPreference
       chave.setOnPreferenceClickListener(new OnPreferenceClickListener() {
          @Override
          public boolean onPreferenceClick(Preference pref) {
+            String valor = pref.getSharedPreferences().getString(pref.getKey(), "");
+            //String str = String.format("Dispositivo de numero %s tem ID:\n\n%s", Util.getFoneNumber(getActivity().getApplicationContext()), valor);
+            String str = String.format("Dispositivo de ID:\n\n%s", valor);
+
             Intent intent = new Intent( Intent.ACTION_SEND);
             intent.setType("message/rfc822");
-            //intent.putExtra(Intent.EXTRA_EMAIL, new String[]{TRANSLATE_LNK} );
             intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name)+" - Dispositivo ID" );
-            intent.putExtra(Intent.EXTRA_TEXT, "Dispositivo de numero XXXX tem ID: ");
+             
+            intent.putExtra(Intent.EXTRA_TEXT, str);
 
             startActivity( Intent.createChooser(intent, "Enviar ID de dispositivo") );
             return false;
          }
       });
-      
       initSumPreference(getPreferenceScreen());
    }
 
@@ -63,7 +66,7 @@ public class ConfigFrag extends PreferenceFragment implements OnSharedPreference
       if (key.equals("confServEnder"))
          Log.d("Conf", "conf");
       //FIXME
-      //Colocar aqui uma validacao para verificar se a URL e v·lida
+      //Colocar aqui uma validacao para verificar se a URL e v√°lida
       //if Util.isConnectedToServer(url, timeout)
       
       initPreference(pref);
